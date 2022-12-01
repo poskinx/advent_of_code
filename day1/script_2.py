@@ -11,7 +11,7 @@ for index in range(len(_input)):
         current_calories += int(_input[index])
     else:
         top_3_elf_calories.append(current_calories)
-        min_value = min(sorted(top_3_elf_calories))
+        min_value = min(top_3_elf_calories)
         top_3_elf_calories.remove(min_value)
         current_calories = 0
 print(sum(top_3_elf_calories))
