@@ -10,10 +10,10 @@ items_dict = {}
 sum_of_priorities = 0
 for idx, item in enumerate(items, 1):
     items_dict[item] = idx
-for index in range(0, len(_input)-1, 3):
+for index in range(0, len(_input) - 1, 3):
     first_backpack = set(_input[index])
-    second_backpack = set(_input[index+1])
-    third_backpack = set(_input[index+2])
+    second_backpack = set(_input[index + 1])
+    third_backpack = set(_input[index + 2])
     for item in first_backpack:
         if item in second_backpack and item in third_backpack:
             sum_of_priorities += items_dict[item]
