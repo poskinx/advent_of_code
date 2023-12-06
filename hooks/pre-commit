@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Run black on staged files using the black from the virtual environment
+git diff --staged --name-only --diff-filter=ACMRTUXB | grep '\.py$' | xargs ./.env/bin/black
+
+# Add the changes made by black
+git add .
