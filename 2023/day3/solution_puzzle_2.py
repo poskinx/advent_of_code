@@ -1,16 +1,16 @@
 import re
 
 
-digit_regex = re.compile(r'\d')
+digit_regex = re.compile(r"\d")
 all_gears = []
 gears = []
 
 
 def round_is_true(round_filter, game):
     conditions = [
-        round_filter['red'] >= game['red'],
-        round_filter['green'] >= game['green'],
-        round_filter['blue'] >= game['blue'],
+        round_filter["red"] >= game["red"],
+        round_filter["green"] >= game["green"],
+        round_filter["blue"] >= game["blue"],
     ]
     return all(conditions)
 
@@ -22,16 +22,16 @@ def add_gear(input_list, i, j):
     for x in [-1, 0, 1]:
         previous_was_number = False
         for y in [-1, 0, 1]:
-            if i+x < 0 or j+y < 0:
+            if i + x < 0 or j + y < 0:
                 continue
-            value = input_list[i+x][j+y]
+            value = input_list[i + x][j + y]
             # print(f"(i, y): ({i+x}, {j+y}), value: {value}")
             if digit_regex.match(value) is not None:
                 if not previous_was_number:
                     count_adjacents += 1
                     # print(f"count_adjacents: {count_adjacents}")
                     previous_was_number = True
-                    numbers.append(get_number(input_list[i+x], j+y))
+                    numbers.append(get_number(input_list[i + x], j + y))
                 if count_adjacents > 2:
                     return
             else:
@@ -69,7 +69,7 @@ def get_number(row, j):
     digits.append(row[j])
     digits.extend(right_nums)
     # print(f"Digits: {''.join(digits)}")
-    return int(''.join(digits))
+    return int("".join(digits))
 
 
 def main():
@@ -84,7 +84,7 @@ def main():
         is_part_number = False
         digits = []
         for j in range(len(row)):
-            if row[j] == '*':
+            if row[j] == "*":
                 # print(f"curent value: {row[j]}")
                 digits.append(row[j])
                 if is_part_number:
@@ -93,11 +93,11 @@ def main():
                     is_part_number = add_gear(input_list, i, j)
             else:
                 if is_part_number:
-                    results.append(int(''.join(digits)))
+                    results.append(int("".join(digits)))
                 is_part_number = False
                 digits = []
         if is_part_number:
-            results.append(int(''.join(digits)))
+            results.append(int("".join(digits)))
             is_part_number = False
             digits = []
     print(f"Digits: {all_gears}")

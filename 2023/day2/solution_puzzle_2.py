@@ -12,12 +12,12 @@ def main():
     games_powers = []
     with open("input.txt", "r") as file:
         for line in file:
-            game, subsets = line.strip().split(':')
-            colors_cubes = {'red': 0, 'blue': 0, 'green': 0}
+            game, subsets = line.strip().split(":")
+            colors_cubes = {"red": 0, "blue": 0, "green": 0}
             games[game] = colors_cubes
-            for subset in subsets.lstrip().split(';'):
-                for cubes in subset.split(','):
-                    cubes, color = cubes.lstrip().split(' ')
+            for subset in subsets.lstrip().split(";"):
+                for cubes in subset.split(","):
+                    cubes, color = cubes.lstrip().split(" ")
                     games[game][color] = max(games[game][color], int(cubes))
             games_powers.append(np.prod(list(games[game].values())))
     print(games)
@@ -26,5 +26,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
