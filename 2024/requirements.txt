@@ -1,2 +1,4 @@
 -r day1/requirements.txt
+-r day2/requirements.txt
 black
+pre-commit
