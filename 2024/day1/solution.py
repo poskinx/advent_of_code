@@ -5,7 +5,7 @@ def part1(lists):
     left_list, right_list = get_sorted_lists(lists)
     distances = []
     for left, right in zip(left_list, right_list):
-        distances.append(abs(left-right))
+        distances.append(abs(left - right))
     print(f"Solution part1: {sum(distances)}")
 
 

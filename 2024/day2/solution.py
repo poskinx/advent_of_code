@@ -19,7 +19,19 @@ def part2(reports):
         else:
             safe_w_removing = False
             for index, _ in enumerate(levels):
-                levels_sliced = levels[:index] + levels[index + 1:]
+                """
+                >>> levels = [7, 6, 4, 2, 1]
+                >>> for index, _ in enumerate(levels):
+                    ...     print(levels[:index] + levels[index + 1:])
+                    ...
+                    [6, 4, 2, 1]
+                    [7, 4, 2, 1]
+                    [7, 6, 2, 1]
+                    [7, 6, 4, 1]
+                    [7, 6, 4, 2]
+
+                """
+                levels_sliced = levels[:index] + levels[index + 1 :]
                 if report_is_safe(levels_sliced):
                     safe_w_removing = True
                     break
@@ -29,6 +41,7 @@ def part2(reports):
                 safe_reports.append(0)
 
     print(f"Solution part2: {sum(safe_reports)}")
+
 
 def report_is_safe(levels):
     levels_asc = sorted(levels)
