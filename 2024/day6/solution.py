@@ -37,10 +37,18 @@ def creates_a_close_loop(matrix, start_row, start_col, start_guard):
     visited_positions = defaultdict(int)
     visited_positions[",".join([str(row), str(col)])] += 1
 
+    rows = len(matrix)
+    cols = len(matrix[0])
+    safety_limit = rows * cols * 2
+    safety_count = 0
     while True:
         # Move forward
         row += directions[guard][0]
         col += directions[guard][1]
+        safety_count += 1
+        if safety_count > safety_limit:
+            # no close loops
+            break
 
         # Check if out of bounds
         if not is_within_bounds(row, col, simulated_matrix.shape):
@@ -50,7 +58,6 @@ def creates_a_close_loop(matrix, start_row, start_col, start_guard):
             visited_positions[",".join([str(row), str(col)])] += 1
             if all_positions_visited_twice(visited_positions):
                 return True
-                break
         else:
             row -= directions[guard][0]
             col -= directions[guard][1]
