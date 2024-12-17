@@ -81,7 +81,7 @@ def patrol(matrix, init_i, init_j, guard, part2=False):
             positions.add((row, col))
             # it is a close loop? -> count +1
             # Exclude starting position
-            if part2 and (row, col) != (init_i, init_j) and (row, col) not in positions_close_loop:
+            if part2 and ((row, col) != (init_i, init_j) and guard != "^") and (row, col) not in positions_close_loop:
                 if creates_a_close_loop(matrix, row, col, guard):
                     positions_close_loop.add((row, col))
         else:
@@ -107,7 +107,7 @@ def part2(lines):
 
 
 def main():
-    with open("input.txt", "r") as file:
+    with open("input.txt.test", "r") as file:
         # Converts file into list
         # strips newline for each line
         lines = [[elem for elem in line.strip()] for line in file]

@@ -34,24 +34,33 @@ def get_init(matrix):
 
 # Optimized creates_a_close_loop function
 def creates_a_close_loop(matrix, start_row, start_col, start_guard, valid_coordinates):
-    matrix[start_row, start_col] = "#"
+    simulated_matrix = matrix.copy()
+    simulated_matrix[start_row, start_col] = "#"  # Add obstruction
 
     row, col, guard = start_row - directions[start_guard][0], start_col - directions[start_guard][1], start_guard
     visited_positions = defaultdict(int)
     visited_positions[(row, col)] += 1
 
+    rows = len(simulated_matrix)
+    cols = len(simulated_matrix[0])
+    safety_limit = rows * cols * 2
+    safety_count = 0
+
     while True:
         row += directions[guard][0]
         col += directions[guard][1]
 
+        safety_count += 1
+        if safety_count > safety_limit:
+            # no close loops
+            break
+
         if (row, col) not in valid_coordinates:
-            matrix[start_row, start_col] = "."
             return False
 
-        if matrix[row, col] != "#":
+        if simulated_matrix[row, col] != "#":
             visited_positions[(row, col)] += 1
             if all_positions_visited_twice(tuple(visited_positions.items())):
-                matrix[start_row, start_col] = "."
                 return True
         else:
             row -= directions[guard][0]
@@ -87,7 +96,7 @@ def patrol_with_multiprocessing(matrix, init_i, init_j, guard, valid_coordinates
             positions.add((row, col))
 
             # Add tasks for multiprocessing
-            if (row, col) != (init_i, init_j) and (row, col) not in positions_close_loop:
+            if ((row, col) != (init_i, init_j) and guard != "^") and (row, col) not in positions_close_loop:
                 tasks.append((matrix.copy(), row, col, guard, valid_coordinates))
         else:
             row -= directions[guard][0]
